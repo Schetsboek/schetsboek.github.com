@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>HR Weerstations</title>
+	
+	<link rel="stylesheet" href="css.css" type="text/css" />
+	<script src="map.js" defer></script>
+	<link rel="shortcut icon" type="image/png" href="logo.png">
+    <script src="OpenLayers.js"></script>
+  </head>
+  <body>
+	<div id="overlay">
+	</div>
+	<div id="nav">
+		<div class="nav_item">
+			<div class="nav_icon">
+				<img width="44px" height="44px" src="logo.png" alt="Logo van HR en IoT wolk"/>
+			</div>
+			<div class="nav_header">
+				<div class="nav_title">
+					Weerstations
+				</div>
+				<div class="nav_subtitle">
+					CMI Hogeschool Rotterdam
+				</div>
+			</div>
+		</div>
+		<div id="weatherstation_list" class="nav_list">
+		</div>
+		
+		<div class="nav_item">
+			<div class="nav_icon">
+				<img width="44px" height="44px" src="options.png" alt="Tandwiel voor opties"/>
+			</div>
+			<div class="nav_header">
+				<div class="nav_title">
+					Opties
+				</div>
+				<div class="nav_subtitle">
+					API Gebruik en documentatie
+				</div>
+			</div>
+		</div>
+		
+		<div class="nav_list">
+			<div id="documentation" class="nav_subitem">
+				<div class="nav_icon">
+					<img width="34px" height="34px" src="documentation.png" alt="Documentatie"/>
+				</div>
+				<div class="nav_header">
+					<div class="nav_title">
+						Documentatie
+					</div>
+					<div class="nav_subtitle">
+						Werking API en website.
+					</div>
+				</div>
+			</div>
+			<div id="account" class="nav_subitem">
+				<div class="nav_icon">
+					<img width="34px" height="34px" src="account.png" alt="Account"/>
+				</div>
+				<div class="nav_header">
+					<div class="nav_title">
+						Account
+					</div>
+					<div id="account_subtitle" class="nav_subtitle">
+						Registreren en inloggen
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="map"></div>
+  </body>
+</html>
