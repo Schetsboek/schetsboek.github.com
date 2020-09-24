@@ -39,11 +39,10 @@ markers.addMarker(marker);
 
 map.setCenter(position, zoom );
 
-//Open documentation
 let nav_documentation = document.getElementById('documentation');
 nav_documentation.onclick = (event) => {
-	//openPopup("documentation_icon.png", "Documentatie", "Gebruik van de API");
-	
+	closePopup();
+		
 	let popup_div = document.createElement("div");
 	popup_div.classList.add("documentation_div");
 	// Titlebar
@@ -70,14 +69,21 @@ nav_documentation.onclick = (event) => {
 	titlebar_subtitle.textContent = "Gebruik van de API";
 	titlebar_header.appendChild(titlebar_subtitle);
 	
+	let hr = document.createElement("hr");
+	hr.classList.add("breakline");
+	popup_div.appendChild(hr);
+	
 	let info1_table = document.createElement("div");
 	info1_table.classList.add("table_row");
 	popup_div.appendChild(info1_table);
 	
-	let info1_row = document.createElement("div");
-	info1_row.classList.add("table_description");
-	info1_row.textContent = "Filler text die doet alsof het informatief is.";
-	info1_table.appendChild(info1_row);
+	let info_rows = ["Filler text die doet alsof het informatief is.", "Filler text die doet alsof het informatief is.", "Filler text die doet alsof het informatief is."];
+	for(let i = 0; i < info_rows.length; i++) {
+		let info1_row = document.createElement("div");
+		info1_row.classList.add("table_description");
+		info1_row.textContent = info_rows[i];
+		info1_table.appendChild(info1_row);
+	}
 	
 	let info2_table = document.createElement("div");
 	info2_table.classList.add("table_row");
@@ -109,37 +115,61 @@ nav_documentation.onclick = (event) => {
 	overlay.style.display = "block";
 }
 
-//Open account
-let nav_account = document.getElementById('account');
-nav_account.onclick = (event) => {
-	// IF NOT LOGGED IN
-	if(api_key == "") {
-		let popup_div = document.createElement("div");
-		popup_div.classList.add("popup_div");
-		accountPopup(popup_div, "Inloggen");
-		accountPopup(popup_div, "Registreren");
-		
-		
-		let close_popup = document.createElement("button");
-		close_popup.classList.add("table_button");
-		close_popup.textContent = 'Sluiten';
-		close_popup.addEventListener('click', (event) => {
-			closePopup();
-		})
-		let close_table = document.createElement("div");
-		close_table.classList.add("table_row");
-		popup_div.appendChild(close_table);
-		let close_row = document.createElement("div");
-		close_row.classList.add("table_description");
-		close_table.appendChild(close_row);
-		close_row.appendChild(close_popup);
-		let overlay = document.getElementById("overlay");
-		overlay.appendChild(popup_div);
-		overlay.style.display = "block";
-	} else {
-		apiPopup("login_icon.png", "API Key", api_key);
-	}
+let nav_login = document.getElementById('login');
+nav_login.onclick = (event) => {
+	closePopup();
 	
+	let popup_div = document.createElement("div");
+	popup_div.classList.add("popup_div");
+	accountPopup(popup_div, "Inloggen");
+	
+	let close_popup = document.createElement("button");
+	close_popup.classList.add("table_button");
+	close_popup.textContent = 'Sluiten';
+	close_popup.addEventListener('click', (event) => {
+		closePopup();
+	})
+	let close_table = document.createElement("div");
+	close_table.classList.add("table_row");
+	popup_div.appendChild(close_table);
+	let close_row = document.createElement("div");
+	close_row.classList.add("table_description");
+	close_table.appendChild(close_row);
+	close_row.appendChild(close_popup);
+	let overlay = document.getElementById("overlay");
+	overlay.appendChild(popup_div);
+	overlay.style.display = "block";
+}
+
+let nav_register = document.getElementById('register');
+nav_register.onclick = (event) => {
+	closePopup();
+	
+	let popup_div = document.createElement("div");
+	popup_div.classList.add("popup_div");
+	accountPopup(popup_div, "Registreren");
+	
+	let close_popup = document.createElement("button");
+	close_popup.classList.add("table_button");
+	close_popup.textContent = 'Sluiten';
+	close_popup.addEventListener('click', (event) => {
+		closePopup();
+	})
+	let close_table = document.createElement("div");
+	close_table.classList.add("table_row");
+	popup_div.appendChild(close_table);
+	let close_row = document.createElement("div");
+	close_row.classList.add("table_description");
+	close_table.appendChild(close_row);
+	close_row.appendChild(close_popup);
+	let overlay = document.getElementById("overlay");
+	overlay.appendChild(popup_div);
+	overlay.style.display = "block";
+}
+
+let nav_account = document.getElementById("account");
+nav_account.onclick = (event) => {
+	apiPopup("login_icon.png", "API Key", api_key);
 }
 
 function eventPopup(weatherStationID){
@@ -171,6 +201,10 @@ function eventPopup(weatherStationID){
 	titlebar_subtitle.classList.add("table_subtitle");
 	titlebar_subtitle.textContent = "Hiervoor moet u ingelogd én eigenaar van dit station zijn.";
 	titlebar_header.appendChild(titlebar_subtitle);
+	
+	let hr = document.createElement("hr");
+	hr.classList.add("breakline");
+	popup_div.appendChild(hr);
 	
 	// Event input
 	let event_table = document.createElement("div");
@@ -269,6 +303,8 @@ function eventPopup(weatherStationID){
 }
 
 function accountPopup(popup_div, type){
+	closePopup();
+	
 	// Titlebar
 	let titlebar_table = document.createElement("div");
 	titlebar_table.classList.add("table_top");
@@ -292,6 +328,10 @@ function accountPopup(popup_div, type){
 	titlebar_subtitle.classList.add("table_subtitle");
 	titlebar_subtitle.textContent = "Verkrijgen API key en rechten op de website";
 	titlebar_header.appendChild(titlebar_subtitle);
+	
+	let hr = document.createElement("hr");
+	hr.classList.add("breakline");
+	popup_div.appendChild(hr);
 	
 	// Studentnumber input
 	let studentnumber_table = document.createElement("div");
@@ -324,6 +364,57 @@ function accountPopup(popup_div, type){
 	password_input.type = 'Password';
 	password_table.appendChild(password_input);
 	
+	if(type == "Registreren") {
+		let hr = document.createElement("hr");
+		hr.classList.add("breakline");
+		popup_div.appendChild(hr);
+		
+		// Stationname input
+		let stationname_table = document.createElement("div");
+		stationname_table.classList.add("table_row");
+		popup_div.appendChild(stationname_table);
+		
+		let stationname_row = document.createElement("div");
+		stationname_row.classList.add("table_description");
+		stationname_row.textContent = "Stationsnaam:";
+		stationname_table.appendChild(stationname_row);
+		
+		let stationname_input = document.createElement("input");
+		stationname_input.classList.add("table_input");
+		stationname_input.placeholder = 'Stationsnaam...';
+		stationname_table.appendChild(stationname_input);
+		
+		// Latitude input
+		let latitude_table = document.createElement("div");
+		latitude_table.classList.add("table_row");
+		popup_div.appendChild(latitude_table);
+		
+		let latitude_row = document.createElement("div");
+		latitude_row.classList.add("table_description");
+		latitude_row.textContent = "Latitude:";
+		latitude_table.appendChild(latitude_row);
+		
+		let latitude_input = document.createElement("input");
+		latitude_input.classList.add("table_input");
+		latitude_input.placeholder = '4...';
+		latitude_table.appendChild(latitude_input);
+		
+		// Longitude input
+		let longitude_table = document.createElement("div");
+		longitude_table.classList.add("table_row");
+		popup_div.appendChild(longitude_table);
+		
+		let longituderow = document.createElement("div");
+		longitude_row.classList.add("table_description");
+		longitude_row.textContent = "Longitude:";
+		longitude_table.appendChild(longitude_row);
+		
+		let longitude_input = document.createElement("input");
+		longitude_input.classList.add("table_input");
+		longitude_input.placeholder = '51...';
+		longitude_table.appendChild(longitude_input);
+	}
+	
 	let login_table = document.createElement("div");
 	login_table.classList.add("table_row");
 	popup_div.appendChild(login_table);
@@ -335,11 +426,7 @@ function accountPopup(popup_div, type){
 	let login_popup = document.createElement("button");
 	login_popup.classList.add("table_button");
 	login_popup.textContent = type;
-	login_popup.addEventListener('click', (event) => {
-		// TODO
-		console.log(studentnumber_input.value);
-		console.log(password_input.value);
-		
+	login_popup.addEventListener('click', (event) => {		
 		let data = {};
 		data.StudentCode = studentnumber_input.value;
 		data.Password = password_input.value;
@@ -366,8 +453,36 @@ function accountPopup(popup_div, type){
 						openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
 					}
 				} else {
-					openPopup("login_icon.png","Succes: Geregistreerd en ingelogd.","API Key is te vinden in het menu onder 'Account'.");
-					loggedIn(reply.Key, reply.StudentID);
+					let key = reply.Key;
+					let studentID = reply.StudentID;
+					
+					let data = {};
+					data.WeatherStationName = stationname_input.value;
+					data.Latitude = latitude_input.value;
+					data.Longitude = longitude_input.value;
+					stationname_input.value = "";
+					latitude_input.value = "";
+					longitude_input.value = "";
+					
+					fetch("https://smartthings-weatherstations.herokuapp.com/api/weatherStation", {
+						method: "POST", 
+						headers: {
+							'Accept': 'application/json, text/plain, */*',
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(data)
+					}).then(response => 
+						response.text()
+					)
+					.then((body) => {
+						let reply = JSON.parse(body);
+						if('message' in reply){
+							openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
+						} else {
+							openPopup("login_icon.png","Succes: Geregistreerd en ingelogd.","API Key is te vinden in het menu onder 'Account'.");
+						}
+					});
+					loggedIn(Key, StudentID);
 				}
 			});
 		} else {
@@ -399,18 +514,28 @@ function accountPopup(popup_div, type){
 function loggedIn(key, studentId){
 	api_key = key;
 	student_id = studentId;
-	let nav_account_subtitle = document.getElementById('account_subtitle');
-	nav_account_subtitle.textContent = "API Key en uitloggen";
+	let nav_login = document.getElementById('login');
+	nav_login.style = "display: none;";
+	let nav_register = document.getElementById('register');
+	nav_register.style = "display: none;";
+	let nav_account = document.getElementById('account');
+	nav_account.style = "display: flex;";
 }
 function logout(){
 	api_key = "";
 	student_id = "";
-	let nav_account_subtitle = document.getElementById('account_subtitle');
-	nav_account_subtitle.textContent = "Registreren en inloggen";
+	let nav_login = document.getElementById('login');
+	nav_login.style = "display: flex;";
+	let nav_register = document.getElementById('register');
+	nav_register.style = "display: flex;";
+	let nav_account = document.getElementById('account');
+	nav_account.style = "display: none;";
 }
 
 function weatherStationList(jsonArray) {
 	let weatherstation_list = document.getElementById("weatherstation_list");
+	let loader = document.getElementById("loader");
+	loader.style = "display: none;";
 	for(let i = 0; i < jsonArray.length; i++) {
 		let jsonObject = jsonArray[i];
 		// Add to weatherstation_list
@@ -504,15 +629,14 @@ function weatherStationPopup(jsonObject){
 
 	let popup_div = document.createElement("div");
 	popup_div.classList.add("popup_div");
-	// Titlebar
+	
 	let titlebar_table = document.createElement("div");
 	titlebar_table.classList.add("table_top");
 	popup_div.appendChild(titlebar_table);
 	
 	let titlebar_icon = document.createElement("img");
 	titlebar_icon.classList.add("table_icon");
-	//TODO _icon
-	titlebar_icon.src = "weatherstation.png";
+	titlebar_icon.src = "weatherstation_icon.png";
 	titlebar_table.appendChild(titlebar_icon);
 	
 	let titlebar_header = document.createElement("div");
@@ -528,49 +652,59 @@ function weatherStationPopup(jsonObject){
 	titlebar_subtitle.classList.add("table_subtitle");
 	titlebar_header.appendChild(titlebar_subtitle);
 
+	let hr = document.createElement("hr");
+	hr.classList.add("breakline");
+	popup_div.appendChild(hr);
+	
 	let subtitle = "";
-	for(let i = 0; i < weatherStationsData[jsonObject.ID].length; i++){
-		if(subtitle == ""){
-			subtitle += weatherStationsData[jsonObject.ID][i].DataType;
-		} else {
-			subtitle += ", " + weatherStationsData[jsonObject.ID][i].DataType;
+	if(weatherStationsData[jsonObject.ID] !== undefined) {
+		for(let i = 0; i < weatherStationsData[jsonObject.ID].length; i++){
+			if(subtitle == ""){
+				subtitle += weatherStationsData[jsonObject.ID][i].DataType;
+			} else {
+				subtitle += ", " + weatherStationsData[jsonObject.ID][i].DataType;
+			}
+			
+			let data_table = document.createElement("div");
+			data_table.classList.add("table_row");
+			popup_div.appendChild(data_table);
+			
+			let data_row = document.createElement("div");
+			data_row.classList.add("table_description");
+			data_row.textContent = weatherStationsData[jsonObject.ID][i].DataType;
+			data_table.appendChild(data_row);
+			
+			let data_input = document.createElement("div");
+			data_input.classList.add("table_value");
+			let data_rounded;
+			if(isNaN(weatherStationsData[jsonObject.ID][i].Average)){
+				data_rounded = weatherStationsData[jsonObject.ID][i].Average
+			} else {
+				data_rounded = Math.round(weatherStationsData[jsonObject.ID][i].Average * 100) / 100;
+			}
+			switch(weatherStationsData[jsonObject.ID][i].DataType){
+				case "Humidity":
+					if(data_rounded > 1) {
+						data_input.textContent = data_rounded + "%";
+					} else {
+						data_input.textContent = (data_rounded*100) + "%";
+					}
+					break;
+				case "Temperature":
+					data_input.textContent = data_rounded + "°C";
+					break;
+				case "WindSpeed":
+					data_input.textContent = data_rounded + "m/s";
+					break;
+				case "WindDirection":
+					data_input.textContent = data_rounded + "°";
+					break;
+				default: 
+					data_input.textContent = data_rounded;
+					break;
+			}
+			data_table.appendChild(data_input);
 		}
-		
-		let data_table = document.createElement("div");
-		data_table.classList.add("table_row");
-		popup_div.appendChild(data_table);
-		
-		let data_row = document.createElement("div");
-		data_row.classList.add("table_description");
-		data_row.textContent = weatherStationsData[jsonObject.ID][i].DataType;
-		data_table.appendChild(data_row);
-		
-		let data_input = document.createElement("div");
-		data_input.classList.add("table_value");
-		let data_rounded;
-		if(isNaN(weatherStationsData[jsonObject.ID][i].Average)){
-			data_rounded = weatherStationsData[jsonObject.ID][i].Average
-		} else {
-			data_rounded = Math.round(weatherStationsData[jsonObject.ID][i].Average * 100) / 100;
-		}
-		switch(weatherStationsData[jsonObject.ID][i].DataType){
-			case "Humidity":
-				data_input.textContent = (data_rounded*100) + "%";
-				break;
-			case "Temperature":
-				data_input.textContent = data_rounded + "°C";
-				break;
-			case "WindSpeed":
-				data_input.textContent = data_rounded + "m/s";
-				break;
-			case "WindDirection":
-				data_input.textContent = data_rounded + "°";
-				break;
-			default: 
-				data_input.textContent = data_rounded;
-				break;
-		}
-		data_table.appendChild(data_input);
 	}
 	titlebar_subtitle.textContent = subtitle;
 
