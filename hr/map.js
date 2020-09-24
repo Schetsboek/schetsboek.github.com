@@ -404,7 +404,7 @@ function accountPopup(popup_div, type){
 		longitude_table.classList.add("table_row");
 		popup_div.appendChild(longitude_table);
 		
-		let longituderow = document.createElement("div");
+		let longitude_row = document.createElement("div");
 		longitude_row.classList.add("table_description");
 		longitude_row.textContent = "Longitude:";
 		longitude_table.appendChild(longitude_row);
