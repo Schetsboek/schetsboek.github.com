@@ -18,9 +18,7 @@ let student_id = "";
 let weatherStationsData = {};
 
 //Setup weatherstation list
-fetch('https://smartthings-weatherstations.herokuapp.com/api/weatherStation')
-  .then(response => response.json())
-  .then(data => weatherStationList(data));
+loadWeatherStations();
   
 //School location
 lonLat = new OpenLayers.LonLat(4.467646,51.912480)
@@ -91,8 +89,15 @@ nav_documentation.onclick = (event) => {
 	
 	let info2_row = document.createElement("div");
 	info2_row.classList.add("table_description");
-	info2_row.textContent = "Filler text die geeneens doet alsof het informatief is!";
+	info2_row.textContent = "Meer functies gebruiken? Bestudeer de excel documentie: ";
 	info2_table.appendChild(info2_row);
+	
+	let documentation_url = document.createElement("a");
+	documentation_url.classList.add("table_value");
+	documentation_url.href = 'https://teams.microsoft.com/l/file/21da65fc-6fda-4c60-88b9-75e6bd85ff2d?tenantId=ca6fbace-7cba-4d53-8681-a06284f7ff46&fileType=xlsx&objectUrl=https%3A%2F%2Fhrnl.sharepoint.com%2Fsites%2FHR-MINCMISMO03SmartThings%2FShared%20Documents%2FGeneral%2FAPI%20endpoints.xlsx&baseUrl=https%3A%2F%2Fhrnl.sharepoint.com%2Fsites%2FHR-MINCMISMO03SmartThings&serviceName=teams&threadId=19:70e94179201044098a7d9c3812d5a8f0@thread.skype&messageId=1600864194616&groupId=4718c60e-4a71-4551-be75-c24746c0b11e';
+	documentation_url.textContent = "Microsoft Teams Excel";
+	documentation_url.target = "_blank";
+	info2_table.appendChild(documentation_url);
 	
 	let close_table = document.createElement("div");
 	close_table.classList.add("table_row");
@@ -364,6 +369,9 @@ function accountPopup(popup_div, type){
 	password_input.type = 'Password';
 	password_table.appendChild(password_input);
 	
+	let stationname_input;
+	let latitude_input;
+	let longitude_input;
 	if(type == "Registreren") {
 		let hr = document.createElement("hr");
 		hr.classList.add("breakline");
@@ -379,7 +387,7 @@ function accountPopup(popup_div, type){
 		stationname_row.textContent = "Stationsnaam:";
 		stationname_table.appendChild(stationname_row);
 		
-		let stationname_input = document.createElement("input");
+		stationname_input = document.createElement("input");
 		stationname_input.classList.add("table_input");
 		stationname_input.placeholder = 'Stationsnaam...';
 		stationname_table.appendChild(stationname_input);
@@ -394,9 +402,9 @@ function accountPopup(popup_div, type){
 		latitude_row.textContent = "Latitude:";
 		latitude_table.appendChild(latitude_row);
 		
-		let latitude_input = document.createElement("input");
+		latitude_input = document.createElement("input");
 		latitude_input.classList.add("table_input");
-		latitude_input.placeholder = '4...';
+		latitude_input.placeholder = '51...';
 		latitude_table.appendChild(latitude_input);
 		
 		// Longitude input
@@ -409,9 +417,9 @@ function accountPopup(popup_div, type){
 		longitude_row.textContent = "Longitude:";
 		longitude_table.appendChild(longitude_row);
 		
-		let longitude_input = document.createElement("input");
+		longitude_input = document.createElement("input");
 		longitude_input.classList.add("table_input");
-		longitude_input.placeholder = '51...';
+		longitude_input.placeholder = '4...';
 		longitude_table.appendChild(longitude_input);
 	}
 	
@@ -433,6 +441,7 @@ function accountPopup(popup_div, type){
 		studentnumber_input.value = "";
 		password_input.value = "";
 
+		console.log(data);
 		if(type == "Registreren"){
 			fetch("https://smartthings-weatherstations.herokuapp.com/api/register", {
 				method: "POST", 
@@ -453,22 +462,24 @@ function accountPopup(popup_div, type){
 						openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
 					}
 				} else {
-					let key = reply.Key;
-					let studentID = reply.StudentID;
+					let Key = reply.Key;
+					let StudentID = reply.StudentID;
 					
-					let data = {};
-					data.WeatherStationName = stationname_input.value;
+					data = {};
+					data.StationName = stationname_input.value;
 					data.Latitude = latitude_input.value;
 					data.Longitude = longitude_input.value;
 					stationname_input.value = "";
 					latitude_input.value = "";
 					longitude_input.value = "";
+					console.log(data);
 					
 					fetch("https://smartthings-weatherstations.herokuapp.com/api/weatherStation", {
 						method: "POST", 
 						headers: {
 							'Accept': 'application/json, text/plain, */*',
-							'Content-Type': 'application/json'
+							'Content-Type': 'application/json',
+							'access-key' : Key
 						},
 						body: JSON.stringify(data)
 					}).then(response => 
@@ -480,6 +491,7 @@ function accountPopup(popup_div, type){
 							openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
 						} else {
 							openPopup("login_icon.png","Succes: Geregistreerd en ingelogd.","API Key is te vinden in het menu onder 'Account'.");
+							loadWeatherStations();
 						}
 					});
 					loggedIn(Key, StudentID);
@@ -749,6 +761,26 @@ function weatherStationPopup(jsonObject){
 	let overlay = document.getElementById("overlay");
 	overlay.appendChild(popup_div);
 	overlay.style.display = "block";
+}
+
+function loadWeatherStations(){
+	
+	let weatherstation_list = document.getElementById("weatherstation_list");
+	while(weatherstation_list.firstChild){
+		weatherstation_list.removeChild(weatherstation_list.firstChild);
+	}
+	
+	let loader_div = document.createElement("div");
+	loader_div.id = "loader";
+	weatherstation_list.appendChild(loader_div);
+	
+	let loader = document.createElement("div");
+	loader.classList.add("loader");
+	loader_div.appendChild(loader);
+	
+	fetch('https://smartthings-weatherstations.herokuapp.com/api/weatherStation')
+	  .then(response => response.json())
+	  .then(data => weatherStationList(data));
 }
 
 function apiPopup(){
