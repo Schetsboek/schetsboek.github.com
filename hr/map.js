@@ -71,21 +71,223 @@ nav_documentation.onclick = (event) => {
 	hr.classList.add("breakline");
 	popup_div.appendChild(hr);
 	
+	let documentation_inner = document.createElement("div");
+	documentation_inner.classList.add("documentation_inner");
+	popup_div.appendChild(documentation_inner);
+	
+	//BREAKLINE
+	
 	let info1_table = document.createElement("div");
 	info1_table.classList.add("table_row");
-	popup_div.appendChild(info1_table);
+	documentation_inner.appendChild(info1_table);
 	
-	let info_rows = ["Filler text die doet alsof het informatief is.", "Filler text die doet alsof het informatief is.", "Filler text die doet alsof het informatief is."];
-	for(let i = 0; i < info_rows.length; i++) {
-		let info1_row = document.createElement("div");
-		info1_row.classList.add("table_description");
-		info1_row.textContent = info_rows[i];
-		info1_table.appendChild(info1_row);
-	}
+	let info1_row = document.createElement("div");
+	info1_row.classList.add("table_description");
+	info1_table.appendChild(info1_row);
+	
+	let info1_header = document.createElement("h3");
+	info1_header.classList.add("info_header");
+	info1_header.textContent = "Account"
+	info1_row.appendChild(info1_header);
+	
+	let info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.textContent = "Om een weerstation te registreren moet men ook een account bezitten. Via deze website kan men dit doen door een account en weerstation tegelijk te genereren."
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.textContent = "In principe heeft men namelijk maar één weerstation, welke men terug kan vinden op de kaart en de weerstation lijst na registratie."
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.textContent = "Een belangrijk gegeven hieruit is de access-key, welke bij meerdere requests gebruikt moet worden."
+	info1_row.appendChild(info1_intro);
+	
+	hr = document.createElement("hr");
+	hr.classList.add("breakline");
+	documentation_inner.appendChild(hr);
+	//BREAKLINE
+	
+	info1_table = document.createElement("div");
+	info1_table.classList.add("table_row");
+	documentation_inner.appendChild(info1_table);
+	
+	info1_row = document.createElement("div");
+	info1_row.classList.add("table_description");
+	info1_table.appendChild(info1_row);
+	
+	info1_header = document.createElement("h3");
+	info1_header.classList.add("info_header");
+	info1_header.textContent = "Weerstation"
+	info1_row.appendChild(info1_header);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.textContent = "Om gegevens van het weerstation in te zien kan men deze openen door in de weerstation lijst op de naam of op de marker ervan op de kaart te klikken."
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.textContent = "Een belangrijk gegeven hiervan is het weerstation identificatienummer, welke bij het ophalen van events gebruikt moet worden."
+	info1_row.appendChild(info1_intro);
+	
+	hr = document.createElement("hr");
+	hr.classList.add("breakline");
+	documentation_inner.appendChild(hr);
+	//BREAKLINE
+	
+	info1_table = document.createElement("div");
+	info1_table.classList.add("table_row");
+	documentation_inner.appendChild(info1_table);
+	
+	info1_row = document.createElement("div");
+	info1_row.classList.add("table_description");
+	info1_table.appendChild(info1_row);
+	
+	info1_header = document.createElement("h3");
+	info1_header.classList.add("info_header");
+	info1_header.textContent = "Weerdata versturen"
+	info1_row.appendChild(info1_header);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.innerHTML = "Om data te versturen naar de server, maakt het weerstation een <span class='post_request'>POST</span> request met de access-key in de header van deze HTTP call. In de body van deze call zet men de datagegevens in JSON formaat."
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.innerHTML = "<span class='important'>BELANGRIJK!</span> Probeer de server te besparen, en stuur niet te vaak data op! Het servergebruik is namelijk gelimiteerd. Eenmaal per minuut is al meer dan genoeg data."
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.innerHTML = "<span class='call_part'>CALL</span> http://smartthings-weatherstations.herokuapp.com/api/weatherData (HTTPS kan ook!)"
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.innerHTML = "<span class='call_part'>HEADER</span> access-key"
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.innerHTML = '<span class="call_part">BODY</span> { "DataType":<span class="variable">"Humidity"</span>, "Value":<span class="variable">0.51</span>, "WeatherStationID":<span class="variable">1</span> }'
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.textContent = 'Hierbij kan de data type "Humidity" (procentschaal van 0 tot 1), "Temperature" (celsius), "WindSpeed" (m/s), "WindDirection" (0 tot 360 graden) zijn.'
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.textContent = 'Bij het weerstation identificatienummer moet men hun huidige weerstation gebruiken.'
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.textContent = 'Mocht men een extra ander data type willen toevoegen, dan kan men dit aanvragen in het Teams kanaal (of andere communicatiewegen).'
+	info1_row.appendChild(info1_intro);
+	
+	hr = document.createElement("hr");
+	hr.classList.add("breakline");
+	documentation_inner.appendChild(hr);
+	//BREAKLINE
+	
+	info1_table = document.createElement("div");
+	info1_table.classList.add("table_row");
+	documentation_inner.appendChild(info1_table);
+	
+	info1_row = document.createElement("div");
+	info1_row.classList.add("table_description");
+	info1_table.appendChild(info1_row);
+	
+	info1_header = document.createElement("h3");
+	info1_header.classList.add("info_header");
+	info1_header.textContent = "Weerdata inzien"
+	info1_row.appendChild(info1_header);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.textContent = "Op de website wordt een gemiddelde weergegeven van alle gestuurde data van elk weerstation. Later wordt dit omgezet naar een periode van de afgelopen X tijd (#TODO)."
+	info1_row.appendChild(info1_intro);
+	
+	hr = document.createElement("hr");
+	hr.classList.add("breakline");
+	documentation_inner.appendChild(hr);
+	//BREAKLINE
+	
+	info1_table = document.createElement("div");
+	info1_table.classList.add("table_row");
+	documentation_inner.appendChild(info1_table);
+	
+	info1_row = document.createElement("div");
+	info1_row.classList.add("table_description");
+	info1_table.appendChild(info1_row);
+	
+	info1_header = document.createElement("h3");
+	info1_header.classList.add("info_header");
+	info1_header.textContent = "Event versturen"
+	info1_row.appendChild(info1_header);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.textContent = "Op de website kan men een event sturen naar een weerstation mits men ingelogd is én eigenaar van dit weerstation. Hierbij kan men een Event (de actie om uit te voeren) en een Parameter (de gegevens voor de actie, bijvoorbeeld een aantal) sturen."
+	info1_row.appendChild(info1_intro);
+	
+	hr = document.createElement("hr");
+	hr.classList.add("breakline");
+	documentation_inner.appendChild(hr);
+	//BREAKLINE
+	
+	info1_table = document.createElement("div");
+	info1_table.classList.add("table_row");
+	documentation_inner.appendChild(info1_table);
+	
+	info1_row = document.createElement("div");
+	info1_row.classList.add("table_description");
+	info1_table.appendChild(info1_row);
+	
+	info1_header = document.createElement("h3");
+	info1_header.classList.add("info_header");
+	info1_header.textContent = "Weerdata versturen"
+	info1_row.appendChild(info1_header);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.innerHTML = "Om data te versturen naar de server, maakt het weerstation een <span class='get_request'>GET</span> request met de access-key in de header van deze HTTP call. De body die men ontvangt bevat een JSON array met alle huidige events. Nadat de events opgehaald zijn worden deze automatisch verwijderd van de server sinds ze standaard maar éénmalig uitgevoerd dienen te worden."
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.innerHTML = "<span class='important'>BELANGRIJK!</span> Probeer de server te besparen, en vraag niet te vaak data op! Het servergebruik is namelijk gelimiteerd. Eenmaal per minuut is al meer dan genoeg."
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.innerHTML = "<span class='call_part'>CALL</span> http://smartthings-weatherstations.herokuapp.com/api/event/<span class='variable'>WeatherStationID</span> (HTTPS kan ook!)"
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.innerHTML = "<span class='call_part'>HEADER</span> access-key"
+	info1_row.appendChild(info1_intro);
+	
+	info1_intro = document.createElement("p");
+	info1_intro.classList.add("info_text");
+	info1_intro.innerHTML = '<span class="call_part">REPLY</span> [ { "ID": 50, "Event": "Appels", "Parameter": "12", "WeatherStationID": 1 } ]'
+	info1_row.appendChild(info1_intro);
+	
+	hr = document.createElement("hr");
+	hr.classList.add("breakline");
+	documentation_inner.appendChild(hr);
+	//BREAKLINE
 	
 	let info2_table = document.createElement("div");
 	info2_table.classList.add("table_row");
-	popup_div.appendChild(info2_table);
+	documentation_inner.appendChild(info2_table);
 	
 	let info2_row = document.createElement("div");
 	info2_row.classList.add("table_description");
@@ -174,7 +376,7 @@ nav_register.onclick = (event) => {
 
 let nav_account = document.getElementById("account");
 nav_account.onclick = (event) => {
-	apiPopup("login_icon.png", "API Key", api_key);
+	apiPopup("login_icon.png", "Access-key", api_key);
 }
 
 function eventPopup(weatherStationID){
@@ -189,7 +391,6 @@ function eventPopup(weatherStationID){
 	
 	let titlebar_icon = document.createElement("img");
 	titlebar_icon.classList.add("table_icon");
-	//TODO event_icon
 	titlebar_icon.src = "event_icon.png";
 	titlebar_table.appendChild(titlebar_icon);
 	
@@ -253,9 +454,6 @@ function eventPopup(weatherStationID){
 	event_popup.classList.add("table_button");
 	event_popup.textContent = "Versturen";
 	event_popup.addEventListener('click', (event) => {
-		// TODO
-		console.log(event_input.value);
-		console.log(parameter_input.value);
 		
 		let data = {};
 		data.WeatherStationID = weatherStationID;
@@ -278,7 +476,6 @@ function eventPopup(weatherStationID){
 		)
 		.then((body) => {
 			let reply = JSON.parse(body);
-			//TODO 200 check
 			if('message' in reply){
 				openPopup("event_icon.png","Onbekende error.","Bent u ingelogd én eigenaar van dit station?");
 			} else {
@@ -331,7 +528,7 @@ function accountPopup(popup_div, type){
 	
 	let titlebar_subtitle = document.createElement("h4");
 	titlebar_subtitle.classList.add("table_subtitle");
-	titlebar_subtitle.textContent = "Verkrijgen API key en rechten op de website";
+	titlebar_subtitle.textContent = "Verkrijgen access-key en rechten op de website";
 	titlebar_header.appendChild(titlebar_subtitle);
 	
 	let hr = document.createElement("hr");
@@ -434,91 +631,99 @@ function accountPopup(popup_div, type){
 	let login_popup = document.createElement("button");
 	login_popup.classList.add("table_button");
 	login_popup.textContent = type;
-	login_popup.addEventListener('click', (event) => {		
-		let data = {};
-		data.StudentCode = studentnumber_input.value;
-		data.Password = password_input.value;
-		studentnumber_input.value = "";
-		password_input.value = "";
+	login_popup.addEventListener('click', (event) => {
+		if(studentnumber_input.value == "" || password_input.value == "" || type == "Registreren" && (stationname_input.value == "" || latitude_input.value == "" || longitude_input.value == "")){
+			alert("Error: vul a.u.b. alle velden in");
+		} else if (isNaN(studentnumber_input.value) || studentnumber_input.value.length != 7 ) {
+			alert("Error: controleer studentnummer");
+		} else if (type == "Registreren" && (isNaN(latitude_input.value) || latitude_input.value < 45 || latitude_input.value > 60 || 
+											 isNaN(longitude_input.value) || longitude_input.value < 2 || longitude_input.value > 10)) {
+			alert("Error: controleer latitude en longitude.");
+		} else {		
+			let data = {};
+			data.StudentCode = studentnumber_input.value;
+			data.Password = password_input.value;
+			studentnumber_input.value = "";
+			password_input.value = "";
 
-		console.log(data);
-		if(type == "Registreren"){
-			fetch("https://smartthings-weatherstations.herokuapp.com/api/register", {
-				method: "POST", 
-				headers: {
-					'Accept': 'application/json, text/plain, */*',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
-			}).then(response => 
-				response.text()
-			)
-			.then((body) => {
-				let reply = JSON.parse(body);
-				if('message' in reply){
-					if(reply.message == "studentcode is already registered"){
-						openPopup("login_icon.png","Error: Studentnummer is al geregistreerd.","Probeer in te loggen in plaats van te registreren.");
-					} else {
-						openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
-					}
-				} else {
-					let Key = reply.Key;
-					let StudentID = reply.StudentID;
-					
-					data = {};
-					data.StationName = stationname_input.value;
-					data.Latitude = latitude_input.value;
-					data.Longitude = longitude_input.value;
-					stationname_input.value = "";
-					latitude_input.value = "";
-					longitude_input.value = "";
-					console.log(data);
-					
-					fetch("https://smartthings-weatherstations.herokuapp.com/api/weatherStation", {
-						method: "POST", 
-						headers: {
-							'Accept': 'application/json, text/plain, */*',
-							'Content-Type': 'application/json',
-							'access-key' : Key
-						},
-						body: JSON.stringify(data)
-					}).then(response => 
-						response.text()
-					)
-					.then((body) => {
-						let reply = JSON.parse(body);
-						if('message' in reply){
-							openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
+			if(type == "Registreren"){
+				fetch("https://smartthings-weatherstations.herokuapp.com/api/register", {
+					method: "POST", 
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(data)
+				}).then(response => 
+					response.text()
+				)
+				.then((body) => {
+					let reply = JSON.parse(body);
+					if('message' in reply){
+						if(reply.message == "studentcode is already registered"){
+							openPopup("login_icon.png","Error: Studentnummer is al geregistreerd.","Probeer in te loggen in plaats van te registreren.");
 						} else {
-							openPopup("login_icon.png","Succes: Geregistreerd en ingelogd.","API Key is te vinden in het menu onder 'Account'.");
-							loadWeatherStations();
+							openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
 						}
-					});
-					loggedIn(Key, StudentID);
-				}
-			});
-		} else {
-			fetch("https://smartthings-weatherstations.herokuapp.com/api/login", {
-				method: "POST", 
-				headers: {
-					'Accept': 'application/json, text/plain, */*',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
-			}).then(response => 
-				response.text()
-			)
-			.then((body) => {
-				let reply = JSON.parse(body);
-				if('message' in reply){
-					openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
-				} else {
-					openPopup("login_icon.png","Succes: Ingelogd.","API Key is te vinden in het menu onder 'Account'.");
-					loggedIn(reply.Key, reply.StudentID);
-				}
-			});
+					} else {
+						let Key = reply.Key;
+						let StudentID = reply.StudentID;
+						
+						data = {};
+						data.StationName = stationname_input.value;
+						data.Latitude = latitude_input.value;
+						data.Longitude = longitude_input.value;
+						stationname_input.value = "";
+						latitude_input.value = "";
+						longitude_input.value = "";
+						console.log(data);
+						
+						fetch("https://smartthings-weatherstations.herokuapp.com/api/weatherStation", {
+							method: "POST", 
+							headers: {
+								'Accept': 'application/json, text/plain, */*',
+								'Content-Type': 'application/json',
+								'access-key' : Key
+							},
+							body: JSON.stringify(data)
+						}).then(response => 
+							response.text()
+						)
+						.then((body) => {
+							let reply = JSON.parse(body);
+							if('message' in reply){
+								openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
+							} else {
+								openPopup("login_icon.png","Succes: Geregistreerd en ingelogd.","Access-key is te vinden in het menu onder 'Account'.");
+								loadWeatherStations();
+							}
+						});
+						loggedIn(Key, StudentID);
+					}
+				});
+			} else {
+				fetch("https://smartthings-weatherstations.herokuapp.com/api/login", {
+					method: "POST", 
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(data)
+				}).then(response => 
+					response.text()
+				)
+				.then((body) => {
+					let reply = JSON.parse(body);
+					if('message' in reply){
+						openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
+					} else {
+						openPopup("login_icon.png","Succes: Ingelogd.","Access-key is te vinden in het menu onder 'Account'.");
+						loggedIn(reply.Key, reply.StudentID);
+					}
+				});
+			}
+			data = "";
 		}
-		data = "";
 	})
 	login_row.appendChild(login_popup);
 }
@@ -603,6 +808,9 @@ function weatherStationList(jsonArray) {
 
 		markers.addMarker(marker);
 	}
+	// Hour timeframe
+	//let fromSeconds = Math.round(new Date().getTime() / 1000) - 3600;
+	
 	//Setup weatherstation data
 	fetch('https://smartthings-weatherstations.herokuapp.com/api/weatherData?AVG=true')
 	  .then(response => response.json())
@@ -662,20 +870,15 @@ function weatherStationPopup(jsonObject){
 	
 	let titlebar_subtitle = document.createElement("h4");
 	titlebar_subtitle.classList.add("table_subtitle");
+	titlebar_subtitle.textContent = "Station ID: " + jsonObject.ID;
 	titlebar_header.appendChild(titlebar_subtitle);
 
 	let hr = document.createElement("hr");
 	hr.classList.add("breakline");
 	popup_div.appendChild(hr);
 	
-	let subtitle = "";
 	if(weatherStationsData[jsonObject.ID] !== undefined) {
 		for(let i = 0; i < weatherStationsData[jsonObject.ID].length; i++){
-			if(subtitle == ""){
-				subtitle += weatherStationsData[jsonObject.ID][i].DataType;
-			} else {
-				subtitle += ", " + weatherStationsData[jsonObject.ID][i].DataType;
-			}
 			
 			let data_table = document.createElement("div");
 			data_table.classList.add("table_row");
@@ -718,8 +921,11 @@ function weatherStationPopup(jsonObject){
 			data_table.appendChild(data_input);
 		}
 	}
-	titlebar_subtitle.textContent = subtitle;
 
+	let hr2 = document.createElement("hr");
+	hr2.classList.add("breakline");
+	popup_div.appendChild(hr2);
+	
 	let event_table = document.createElement("div");
 	event_table.classList.add("table_row");
 	popup_div.appendChild(event_table);
@@ -811,7 +1017,6 @@ function apiPopup(){
 	titlebar_subtitle.classList.add("table_subtitle");
 	titlebar_subtitle.textContent = api_key;
 	titlebar_header.appendChild(titlebar_subtitle);
-	
 	let close_table = document.createElement("div");
 	close_table.classList.add("table_row");
 	popup_div.appendChild(close_table);
