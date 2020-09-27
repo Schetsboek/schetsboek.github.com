@@ -252,12 +252,12 @@ nav_documentation.onclick = (event) => {
 	
 	info1_header = document.createElement("h3");
 	info1_header.classList.add("info_header");
-	info1_header.textContent = "Weerdata versturen"
+	info1_header.textContent = "Events inzien"
 	info1_row.appendChild(info1_header);
 	
 	info1_intro = document.createElement("p");
 	info1_intro.classList.add("info_text");
-	info1_intro.innerHTML = "Om data te versturen naar de server, maakt het weerstation een <span class='get_request'>GET</span> request met de access-key in de header van deze HTTP call. De body die men ontvangt bevat een JSON array met alle huidige events. Nadat de events opgehaald zijn worden deze automatisch verwijderd van de server sinds ze standaard maar éénmalig uitgevoerd dienen te worden."
+	info1_intro.innerHTML = "Om data te ontvangen van de server, maakt het weerstation een <span class='get_request'>GET</span> request met de access-key in de header van deze HTTP call. De body die men ontvangt bevat een JSON array met alle huidige events. Nadat de events opgehaald zijn worden deze automatisch verwijderd van de server sinds ze standaard maar éénmalig uitgevoerd dienen te worden."
 	info1_row.appendChild(info1_intro);
 	
 	info1_intro = document.createElement("p");
@@ -277,7 +277,7 @@ nav_documentation.onclick = (event) => {
 	
 	info1_intro = document.createElement("p");
 	info1_intro.classList.add("info_text");
-	info1_intro.innerHTML = '<span class="call_part">REPLY</span> [ { "ID": 50, "Event": "Appels", "Parameter": "12", "WeatherStationID": 1 } ]'
+	info1_intro.innerHTML = '<span class="call_part">REPLY</span> [ { "ID": <span class="variable">50</span>, "Event": <span class="variable">"Appels"</span>, "Parameter": <span class="variable">"12"</span>, "WeatherStationID": <span class="variable">1</span> } ]'
 	info1_row.appendChild(info1_intro);
 	
 	hr = document.createElement("hr");
