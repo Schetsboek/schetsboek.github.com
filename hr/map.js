@@ -10,11 +10,15 @@ map.addLayer(mapnik);
 let markers = new OpenLayers.Layer.Markers( "Markers" );
 map.addLayer(markers);
 
-// TODO Cookies?
+let cookieChecked = false;
 
 //Setup global variables
 let api_key = "";
 let student_id = "";
+
+if(getCookie("api_key") !== ""){
+	loggedIn(getCookie("api_key"), getCookie("student_id"), false);
+}
 let weatherStationsData = {};
 
 //Setup weatherstation list
@@ -628,6 +632,16 @@ function accountPopup(popup_div, type){
 	login_row.classList.add("table_description");
 	login_table.appendChild(login_row);
 	
+	let login_checkmark = document.createElement("input");
+	login_checkmark.id = "checkbox";
+	login_checkmark.setAttribute("type", "checkbox");
+	login_checkmark.addEventListener("change", (event) => {
+		if (!cookieChecked && event.target.checked) {
+			alert("Dit plaatst een cookie!");
+			cookieChecked = true;
+		}
+	});
+	
 	let login_popup = document.createElement("button");
 	login_popup.classList.add("table_button");
 	login_popup.textContent = type;
@@ -639,12 +653,14 @@ function accountPopup(popup_div, type){
 		} else if (type == "Registreren" && (isNaN(latitude_input.value) || latitude_input.value < 45 || latitude_input.value > 60 || 
 											 isNaN(longitude_input.value) || longitude_input.value < 2 || longitude_input.value > 10)) {
 			alert("Error: controleer latitude en longitude.");
-		} else {		
+		} else {
 			let data = {};
 			data.StudentCode = studentnumber_input.value;
 			data.Password = password_input.value;
 			studentnumber_input.value = "";
 			password_input.value = "";
+			
+			let rememberMe = login_checkmark.checked;
 
 			if(type == "Registreren"){
 				fetch("https://smartthings-weatherstations.herokuapp.com/api/register", {
@@ -698,7 +714,7 @@ function accountPopup(popup_div, type){
 								loadWeatherStations();
 							}
 						});
-						loggedIn(Key, StudentID);
+						loggedIn(Key, StudentID, rememberMe);
 					}
 				});
 			} else {
@@ -718,7 +734,7 @@ function accountPopup(popup_div, type){
 						openPopup("login_icon.png","Error: Gegevens zijn incorrect.","Andere mogelijkheid is dat de service down is.");
 					} else {
 						openPopup("login_icon.png","Succes: Ingelogd.","Access-key is te vinden in het menu onder 'Account'.");
-						loggedIn(reply.Key, reply.StudentID);
+						loggedIn(reply.Key, reply.StudentID, rememberMe);
 					}
 				});
 			}
@@ -726,9 +742,16 @@ function accountPopup(popup_div, type){
 		}
 	})
 	login_row.appendChild(login_popup);
+	login_row.appendChild(login_checkmark);
+	
+	let login_label = document.createElement("label");
+	login_label.classList.add("label");
+	login_label.textContent = "Onthouden";
+	login_label.setAttribute("for", "checkbox");
+	login_row.appendChild(login_label);
 }
 
-function loggedIn(key, studentId){
+function loggedIn(key, studentId, rememberMe){
 	api_key = key;
 	student_id = studentId;
 	let nav_login = document.getElementById('login');
@@ -737,6 +760,14 @@ function loggedIn(key, studentId){
 	nav_register.style = "display: none;";
 	let nav_account = document.getElementById('account');
 	nav_account.style = "display: flex;";
+	
+	if(rememberMe){
+		let d = new Date();
+		d.setTime(d.getTime() + (182.5*24*60*60*1000));
+		let expires = "expires="+ d.toUTCString();
+		document.cookie = "api_key=" + api_key + ";" + expires + ";path=/";
+		document.cookie = "student_id=" + student_id + ";" + expires + ";path=/";
+	}
 }
 function logout(){
 	api_key = "";
@@ -747,6 +778,27 @@ function logout(){
 	nav_register.style = "display: flex;";
 	let nav_account = document.getElementById('account');
 	nav_account.style = "display: none;";
+	
+	if(getCookie("api_key") !== ""){
+		document.cookie = "api_key=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		document.cookie = "student_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	}
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
 
 function weatherStationList(jsonArray) {
