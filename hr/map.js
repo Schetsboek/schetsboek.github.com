@@ -864,7 +864,7 @@ function weatherStationList(jsonArray) {
 	//let fromSeconds = Math.round(new Date().getTime() / 1000) - 3600;
 	
 	//Setup weatherstation data
-	fetch('https://smartthings-weatherstations.herokuapp.com/api/weatherData?AVG=true')
+	fetch('https://smartthings-weatherstations.herokuapp.com/api/weatherData')
 	  .then(response => response.json())
 	  .then(data => groupWeatherData(data));
 }
@@ -876,14 +876,25 @@ function groupWeatherData(jsonArray) {
 			weatherStationsData[jsonObject.WeatherStationID] = [];
 		}
 		let data = {};
+		console.log(jsonObject);
 		data.DataType = jsonObject.DataType;
-		data.Average = jsonObject.Average;
-		weatherStationsData[jsonObject.WeatherStationID].push(data);
-		let datatypes_div = document.getElementById(jsonObject.WeatherStationID + "_datatypes");
-		if(datatypes_div.textContent == ""){
-			datatypes_div.textContent = jsonObject.DataType;
-		} else {
-			datatypes_div.textContent += ", " + jsonObject.DataType;
+		data.Value = jsonObject.Value;
+		let duplicate = false;
+		for(let i = 0; i < weatherStationsData[jsonObject.WeatherStationID].length; i++){
+			if(weatherStationsData[jsonObject.WeatherStationID][i].DataType == data.DataType){
+				weatherStationsData[jsonObject.WeatherStationID][i] = data;
+				duplicate = true;
+				break;
+			}
+		}
+		if(!duplicate){
+			weatherStationsData[jsonObject.WeatherStationID].push(data);
+			let datatypes_div = document.getElementById(jsonObject.WeatherStationID + "_datatypes");
+			if(datatypes_div.textContent == ""){
+				datatypes_div.textContent = jsonObject.DataType;
+			} else {
+				datatypes_div.textContent += ", " + jsonObject.DataType;
+			}
 		}
 	}
 }
@@ -944,10 +955,10 @@ function weatherStationPopup(jsonObject){
 			let data_input = document.createElement("div");
 			data_input.classList.add("table_value");
 			let data_rounded;
-			if(isNaN(weatherStationsData[jsonObject.ID][i].Average)){
-				data_rounded = weatherStationsData[jsonObject.ID][i].Average
+			if(isNaN(weatherStationsData[jsonObject.ID][i].Value)){
+				data_rounded = weatherStationsData[jsonObject.ID][i].Value
 			} else {
-				data_rounded = Math.round(weatherStationsData[jsonObject.ID][i].Average * 100) / 100;
+				data_rounded = Math.round(weatherStationsData[jsonObject.ID][i].Value * 100) / 100;
 			}
 			switch(weatherStationsData[jsonObject.ID][i].DataType){
 				case "Humidity":
