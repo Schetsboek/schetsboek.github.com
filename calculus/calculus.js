@@ -1,4 +1,4 @@
-let passedCalculus = null;
+let passedCalculus = true;
 
 let passedCalculus_field = document.getElementById('passedCalculus');
 if(passedCalculus){
