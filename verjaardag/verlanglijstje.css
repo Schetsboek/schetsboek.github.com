@@ -1,0 +1,46 @@
+li {
+	width: fit-content;
+	padding: 2px;
+}
+
+html {
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	text-shadow: 0 0 2px #405eb1;
+	background: linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 100%);
+	height: 100%;
+}
+
+h1 {
+	animation: glow-title 1s ease-in-out infinite alternate;
+}
+
+.content {
+	text-align: center;
+	transform: rotate(-2deg);
+	margin: 0 auto;
+	width: 400px;
+}
+
+ul {
+	text-align: left;
+}
+
+@-webkit-keyframes glow-title {
+  from {
+    text-shadow: 0 0 3px #fff, 0 0 6px #fff, 0 0 9px #ffd100, 0 0 12px #ffd100, 0 0 15px #ffd100, 0 0 18px #ffd100, 0 0 21px #9d8c27;
+  }
+  
+  to {
+    text-shadow: 0 0 6px #fff, 0 0 12px #ffd100, 0 0 18px #ffd100, 0 0 24px #ffd100, 0 0 30px #9d8c27, 0 0 36px #9d8c27, 0 0 42px #776a1c;
+  }
+}
+
+@-webkit-keyframes glow-same {
+  from {
+    text-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 6px #e60073, 0 0 8px #e60073, 0 0 10px #e60073, 0 0 12px #e60073, 0 0 14px #e60073;
+  }
+  
+  to {
+    text-shadow: 0 0 4px #fff, 0 0 6px #ff4da6, 0 0 8px #ff4da6, 0 0 10px #ff4da6, 0 0 12px #ff4da6, 0 0 14px #ff4da6, 0 0 16px #ff4da6;
+  }
+}
