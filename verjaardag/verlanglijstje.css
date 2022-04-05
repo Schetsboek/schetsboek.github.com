@@ -5,10 +5,10 @@ li {
 
 html {
 	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	text-align: center;
 	text-shadow: 0 0 2px #405eb1;
 	background: linear-gradient(135deg, rgba(2,57,164,1) 0%, rgba(0,212,255,1) 100%);
 	height: 100%;
-	width: fill-content;
 }
 
 h1 {
@@ -16,14 +16,20 @@ h1 {
 }
 
 .content {
-	text-align: center;
 	transform: rotate(-2deg);
 	margin: 0 auto;
 	max-width: 400px;
+	min-width: 400px;
 }
 
 ul {
 	text-align: left;
+}
+
+@media all and (min-width: 699px) {
+  .content {
+	  max-width: 600px;
+  }
 }
 
 @-webkit-keyframes glow-title {
