@@ -19,7 +19,7 @@ function lights(event) {
 	if (lightsOn) {
 		switchElement.style.transform = "rotate(0deg)";
 		
-		document.documentElement.style.background = "linear-gradient(135deg, rgba(2,57,164,1) 0%, rgba(0,212,255,1) 100%)";
+		document.documentElement.style.background = "linear-gradient(90deg, rgba(2,57,164,1) 0%, rgba(0,212,255,1) 100%)";
 		document.documentElement.style.color = "#000";
 		document.documentElement.style.text_shadow = "0 0 2px #405eb1";
 		
