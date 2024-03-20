@@ -16,7 +16,7 @@ h1 {
 }
 
 .content {
-	transform: rotate(-2deg);
+	transform: rotate(-1deg);
 	margin: 0 auto;
 	max-width: 400px;
 	min-width: 400px;
