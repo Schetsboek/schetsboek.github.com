@@ -27,7 +27,7 @@ function lights(event) {
 		switchElement.style.transform = "rotate(180deg)";
 		
 		document.documentElement.style.background = "white";
-		document.documentElement.style.color = "#e7e7e7";
+		document.documentElement.style.color = "black";
 		document.documentElement.style.text_shadow = "0 0 2px yellow";
 	}
 	
